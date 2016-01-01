@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MrFinPROTOTYPE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script type="text/javascript" src='/webjars/jquery/2.1.4/jquery.js'></script>
+    <script type="text/javascript" src='/webjars/jquery-ui/1.11.4/jquery-ui.js'></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
+
+    <link href="../static/css/jquery-ui.customer.theme.min.css" th:href="@{css/jquery-ui.customer.theme.min.css}" rel="stylesheet"/>
+    <link href="../static/css/fonts.css" th:href="@{css/fonts.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/main.css" th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/media.css" th:href="@{css/media.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/libs/font-awesome-4.2.0/css/font-awesome.min.css"
+          th:href="@{libs/font-awesome-4.2.0/css/font-awesome.min.css}" rel="stylesheet" media="screen"/>
+
+    <link rel='stylesheet' href="/webjars/bootstrap/3.3.6/css/bootstrap.css" />
+    <link rel='stylesheet' href='/webjars/jquery-ui/1.11.4/jquery-ui.min.css'/>
+
+</head>
+<body>
+<input type="hidden" id="router_url" th:value="${router_url}"/>
+
+<div id="dialog-message" title="Error">
+    <p id="title-error">
+        Text error.
+    </p>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group has-feedback">
+                        <label for="firstName" class="control-label col-xs-4">First Name:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input type="text" class="form-control" required="required" name="firstName"
+                                       id="firstName" pattern="[A-Za-z]{3,}" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="lastName" class="control-label col-xs-4">Last Name:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input type="text" class="form-control" required="required" name="lastName"
+                                       id="lastName" pattern="[A-Za-z]{4,}" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="login" class="control-label col-xs-4">Login:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" class="form-control" required="required" name="login" id="login"
+                                       pattern="[A-Za-z]{6,}" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="email" class="control-label col-xs-4">Email:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" class="form-control" required="required" name="email" id="email" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="password" class="control-label col-xs-4">Password:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-alert"></i></span>
+                                <input type="password" class="form-control" required="required" name="password"
+                                       id="password" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="confirmPassword" class="control-label col-xs-4">Confirm password:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-alert"></i></span>
+                                <input type="password" class="form-control" required="required"
+                                       name="confirmPassword" id="confirmPassword" />
+                            </div>
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="btnSignUp" type="button" class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="top_header header_wrapper">
+    <div class="header_topline">
+        <div class="container">
+            <div class="col-xs-6 col-sm-6">
+                <div class="name_wrapper">
+                    <h3 class="text-muted text-left "><strong>Mr.Fin</strong></h3>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+                <div class="clearfix" style="float: right; display: table-cell">
+                    <div style="float: left">
+                        <button class="auth_buttons text-left"><i class="fa fa-user"></i></button>
+                        <a class="hidden-xs" href="#myModal" data-toggle="modal">Sign up</a>&nbsp;
+                    </div>
+                    <div style="float: right">
+                        <span>/</span>
+                        &nbsp;<a class="text-left" href="#">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="converter">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <a href="#" class="converter_text">Currency converter</a>
+            </div>
+        </div>
+    </div>
+    <div class="converter_buttons">
+        <div class="container converter_wrapper">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="src_amount converter_item_wrapper">
+                        <input id="srcAmount" type="text" min="0" class="form-control" placeholder="Currency I have"
+                               aria-describedby="basic-addon2"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="source_currency converter_item_wrapper" align="right">
+                        <select id="srcCurrency" class="form-control grad3"></select>
+                    </div>
+                </div>
+                <div class="col-md-1" align="center">
+                    <a id="replaceCurrencies" class="convert_button replace converter_item_wrapper">
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <div class="destination_currency converter_item_wrapper" align="left">
+                        <select id="dstCurrency" class="form-control grad3" name="select"></select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="dst_amount converter_item_wrapper">
+                        <input id="dstAmount" type="text" min="0" class="form-control" placeholder="Currency I want"
+                               aria-describedby="basic-addon2" readonly="readonly"/>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <a id="convertCurrencyButton" class="convert_button">
+                        <i class="fa fa-arrow-circle-o-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="alert alert-success hidden" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">×</button>
+            <h3>Successful registration!</h3>
+            <div>Dear&nbsp;<label id="firstNameLabel"></label>!</div>
+            <div>You were successfully registered in our system. Please check your registration e-mail address and
+                follow the confirmation link to complete the registration and activate your account.</div>
+        </div>
+        <div class="alert alert-danger hidden" id="error-alert">
+            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">×</button>
+            <h3>Registration failed!</h3>
+            <div>The were some problems encountered during the registration. Please try again later.</div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <p>&copy; 2015 ExtremeJunior, Inc.</p>
+</footer>
+<script src="../static/js/common.js" th:src="@{js/common.js}"></script>
+</body>
+</html>
